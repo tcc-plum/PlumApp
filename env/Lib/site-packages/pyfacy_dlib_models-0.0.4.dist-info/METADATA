@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: pyfacy-dlib-models
+Version: 0.0.4
+Summary: Models used by the pyfacy package.
+Home-page: https://github.com/ManivannanMurugavel/pyfacy_dlib_models
+Author: Manivannan Murugavel
+Author-email: manivannanmca2012@gmail.com
+License: MIT license
+Keywords: pyfacy
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+
+# Pyfacy Dlib Models
+
+### This model used to identify the face using [pyfacy](https://github.com/ManivannanMurugavel/pyfacy) package.
+
+
+

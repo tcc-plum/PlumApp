@@ -1,47 +1,179 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - My Flask Application</title>
-    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
-    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% if title %}
+    <title>Plum | {{ title }}</title>
+    {% else %}
+    <title>Plum</title>
+    {% endif %}
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
+
+    <!-- Font Awesome -->
+    <!-- <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='bower_components/font-awesome/css/font-awesome.min.css')}}">
+
+    <!-- Ionicons -->
+    <!-- <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='bower_components/Ionicons/css/ionicons.min.css')}}">
+
+    <!-- Theme style -->
+    <!-- <link rel="stylesheet" href="dist/css/AdminLTE.min.css"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='dist/css/AdminLTE.min.css')}}">
+
+    <!-- <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='dist/css/skins/skin-blue.min.css')}}">
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='dist/css/style.css')}}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" />
+
+    <!-- <style>
+        video, canvas {
+          position: absolute;
+          margin-left: 10%;
+          border: 1px solid red;
+        }
+      </style>-->
 </head>
 
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="/" class="navbar-brand">Application name</a>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            <!-- Main Header -->
+            <header class="main-header">
+                <!-- Logo -->
+                <a href="/index" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>Plum</b></span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b>Plum |</b> {{title}}</span>
+                </a>
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <!-- <li class="header">PROCESSOS</li> -->
+                        <!-- Optionally, you can add icons to the links -->
+                        <li class="{{'active' if active_page == 'index' else ''}}"><a href="/index"><i class="fa fa-user"></i> <span>Ver perfis</span></a></li>
+                        <li class="{{'active' if active_page == 'cluster' else ''}}"><a href="/cluster"><i class="fa fa-link"></i> <span>Ver clusters</span></a></li>
+                        <!-- <li class="{{'active' if active_page == 'camera' else ''}}"><a href="#"><i class="fa fa-link"></i> <span>Câmera</span></a></li> -->
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+
+                <form action="/camera/" method="POST" class="sidebar-form">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat form-control">
+                                <i class="fa fa-camera"></i>
+                                Inicializar Câmera
+                            </button>
+                        </span>
+                    </div>
+                </form>
+
+
+                <form action="/push" method="POST" class="sidebar-form">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat form-control">
+                                <i class="fa fa-database"></i>
+                                Enviar Dados
+                            </button>
+                        </span>
+                    </div>
+                </form>
+
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {% block content %}{% endblock %}
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('about') }}">About</a></li>
-                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
-                </ul>
-            </div>
+            <!-- /.content-wrapper -->
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <!-- Default to the left -->
+                <strong>Copyright &copy; 2019 <a href="/index">Plum</a></strong>
+            </footer>
         </div>
-    </div>
+        <!-- ./wrapper -->
+        <!-- REQUIRED JS SCRIPTS -->
+        <!-- jQuery 3 -->
+        <script src="{{url_for('static', filename='bower_components/jquery/dist/jquery.min.js')}}"></script>
 
-    <div class="container body-content">
-        {% block content %}{% endblock %}
-        <hr />
-        <footer>
-            <p>&copy; {{ year }} - My Flask Application</p>
-        </footer>
-    </div>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="{{url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
-    <script src="/static/scripts/jquery-1.10.2.js"></script>
-    <script src="/static/scripts/bootstrap.js"></script>
-    <script src="/static/scripts/respond.js"></script>
-    {% block scripts %}{% endblock %}
+        <!-- AdminLTE App -->
+        <script src="{{url_for('static', filename='dist/js/adminlte.min.js')}}"></script>
 
-</body>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+        <script>
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+        </script>
+
+        <!-- Tracking js -->
+        <!-- <script src="{{url_for('static', filename='build/trackingjs/tracking-min.js')}}"></script>
+        <script src="{{url_for('static', filename='build/trackingjs/data/face-min.js')}}"></script>
+
+
+        <script>
+          function init(){
+            const video = document.getElementById('video')
+            const canvas = document.getElementById('canvas')
+            const context = canvas.getContext('2d')
+            const tracker = new tracking.ObjectTracker('face')
+
+            tracking.track('#video', tracker, { camera: true })
+
+            tracker.on('track', event => {
+              // console.log(event)
+
+              context.clearRect(0, 0, canvas.width, canvas.height)
+              event.data.forEach( rect => {
+                console.log(rect)
+                context.strokeStyle = '#ff0000'
+                context.lineWidth = 2
+                context.strokeRect(rect.x, rect.y, rect.width, rect.height)
+              })
+
+            })
+
+          }
+        window.onload = init()
+
+        </script> -->
+
+
+    </body>
 </html>

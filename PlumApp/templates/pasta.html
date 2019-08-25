@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% set active_page = "cluster"  %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+        Cluster
+        <small>Todos os frames</small>
+        </h1>
+
+        <ol class="breadcrumb">
+        <li><a href="/index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/cluster">Clusters</a></li>
+        <li class="active">{{ pasta }}</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="row">
+            <!-- col it -->
+            <div class="col-md-12">
+                <!-- Category -->
+                <div class="single category">
+                    <h3 class="side-title"><b>Quantidade de frames: </b>{{ imagens|length }}</h3>
+                    <div class="row">
+                    {% for imagem in imagens %}
+                        <!-- col it -->
+                        <div class="col-md-1">
+                            <!-- Profile Image -->
+                            <div class="box" data-toggle="modal" data-target="#myModal">
+                                <a href="{{imagem}}" data-toggle="lightbox">
+                                    <img class="profile-user-img img-responsive" src="{{imagem}}" alt="Frames">
+                                </a>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!-- /.col it -->
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        <!-- /.col it -->
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock content %}

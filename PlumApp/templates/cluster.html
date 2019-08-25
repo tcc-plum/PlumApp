@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% set active_page = "cluster"  %}
+{% block content %}
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Clusters
+      <small>Rostos separados por pessoa</small>
+    </h1>
+
+    <ol class="breadcrumb">
+      <li><a href="/index"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Clusters</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content container-fluid">
+    <div class="row">
+      <!-- col it -->
+      <div class="col-md-12">
+        <!-- Category -->
+        <div class="single category">
+          <h3 class="side-title">Clusters | <b>{{ quantidade }}</b>
+            <span class="pull-right">Frames | <b>{{ total_frames }}</b></span>
+          </h3>
+          <ul class="list-unstyled">
+            {% for chave, valor in clusters.items() %}
+            <li><a href="cluster/{{ chave }}" title="">{{ chave }} 
+              <span class="pull-right"> | <b>{{ valor|length }}</b></span></a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <!-- /.col it -->
+    </div>
+  </section>
+  <!-- /.content -->
+{% endblock content %}

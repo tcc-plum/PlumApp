@@ -1,33 +1,143 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
+{% set active_page= "index" %}
 
 {% block content %}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Perfis
+        <small>Dados sobre os perfis</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/index"><i class="fa fa-dashboard"></i>{{ title }}</a></li>
+        <li class="active">Perfis</li>
+    </ol>
+</section>
 
-<div class="jumbotron">
-    <h1>Flask</h1>
-    <p class="lead">Flask is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://flask.pocoo.org/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
+<!-- Main content -->
+<section class="content container-fluid">
+    {% if dados %}
+    <div class="row">
+        {% for chave, valor in dados.items() %}
+        <!-- col it -->
+        <div class="col-md-3">
+            <!-- Profile Image -->
+            <div class="box" data-toggle="modal" data-target="#{{ chave }}">
+                <div class="box-body box-profile">
+                    <img class="profile-user-img img-responsive" src="{{valor.f_url_img}}"
+                         alt="User profile picture">
+                    <ul class="list-group list-group-unbordered no-padding">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Flask gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://flask.pocoo.org/docs/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>The Python Package Index is a repository of software for the Python programming language.</p>
-        <p><a class="btn btn-default" href="https://pypi.python.org/pypi">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Microsoft Azure</h2>
-        <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
-    </div>
-</div>
+                        {% if valor['photos'][0]['tags'][0]['attributes']['gender'] %}
+                        <li class="list-group-item">
+                            <b>Gênero</b> <a class="pull-right">{{ valor['photos'][0]['tags'][0]['attributes']['gender']['value'] }} ({{ valor['photos'][0]['tags'][0]['attributes']['gender']['confidence'] }}%)</a>
+                        </li>
+                        {% else %}
+                        <li class="list-group-item">
+                            <b>Gênero</b> <a class="pull-right">undefined</a>
+                        </li>
+                        {% endif %}
 
-{% endblock %}
+                        {% if valor['photos'][0]['tags'][0]['attributes']['age_est'] %}
+                        <li class="list-group-item">
+                            <b>Idade</b> <a class="pull-right">{{ valor['photos'][0]['tags'][0]['attributes']['age_est']['value'] }} ({{ valor['photos'][0]['tags'][0]['attributes']['age_est']['confidence'] }}%)</a>
+                        </li>
+                        {% else %}
+                        <li class="list-group-item">
+                            <b>Idade</b> <a class="pull-right">undefined</a>
+                        </li>
+                        {% endif %}
+
+                        {% if valor['photos'][0]['tags'][0]['attributes']['mood'] %}
+                        <li class="list-group-item">
+                            <b>Humor</b> <a class="pull-right">{{ valor['photos'][0]['tags'][0]['attributes']['mood']['value'] }} ({{ valor['photos'][0]['tags'][0]['attributes']['mood']['confidence'] }}%)</a>
+                        </li>
+                        {% else %}
+                        <li class="list-group-item">
+                            <b>Humor</b> <a class="pull-right">undefined</a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="{{ chave }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Mais detalhes</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <img class="profile-user-img img-responsive" src="{{valor.f_url_img}}"
+                             alt="User profile picture">
+                        <ul class="list-group list-group-unbordered no-padding">
+
+                            <li class="list-group-item">
+                                <b>Cluster</b> <a class="pull-right">{{ valor['cluster_id'] }}</a>
+                            </li>
+                            {% if valor['photos'][0]['tags'][0]['attributes']['gender'] %}
+                            <li class="list-group-item">
+                                <b>Gênero</b> <a class="pull-right">{{ valor['photos'][0]['tags'][0]['attributes']['gender']['value'] }} ({{ valor['photos'][0]['tags'][0]['attributes']['gender']['confidence'] }}%)</a>
+                            </li>
+                            {% endif %}
+
+                            {% if valor['photos'][0]['tags'][0]['attributes']['glasses'] %}
+                            <li class="list-group-item">
+                                <b>Óculos</b> <a class="pull-right">{{ valor['photos'][0]['tags'][0]['attributes']['glasses']['value'] }} ({{ valor['photos'][0]['tags'][0]['attributes']['glasses']['confidence'] }}%)</a>
+                            </li>
+                            {% endif %}
+
+                            {% if valor['photos'][0]['tags'][0]['attributes']['smiling'] %}
+                            <li class="list-group-item">
+                                <b>Sorrindo</b> <a class="pull-right">{{ valor['photos'][0]['tags'][0]['attributes']['smiling']['value'] }} ({{ valor['photos'][0]['tags'][0]['attributes']['smiling']['confidence'] }}%)</a>
+                            </li>
+                            {% endif %}
+
+                            {% if valor['photos'][0]['tags'][0]['attributes']['age_est'] %}
+                            <li class="list-group-item">
+                                <b>Idade</b> <a class="pull-right">{{ valor['photos'][0]['tags'][0]['attributes']['age_est']['value'] }} ({{ valor['photos'][0]['tags'][0]['attributes']['age_est']['confidence'] }}%)</a>
+                            </li>
+                            {% endif %}
+
+                            {% if valor['photos'][0]['tags'][0]['attributes']['mood'] %}
+                            <li class="list-group-item">
+                                <b>Humor</b> <a class="pull-right">{{ valor['photos'][0]['tags'][0]['attributes']['mood']['value'] }} ({{ valor['photos'][0]['tags'][0]['attributes']['mood']['confidence'] }}%)</a>
+                            </li>
+                            {% endif %}
+
+                            {% if valor['photos'][0]['tags'][0]['attributes']['lips'] %}
+                            <li class="list-group-item">
+                                <b>Lábios</b> <a class="pull-right">{{ valor['photos'][0]['tags'][0]['attributes']['lips']['value'] }} ({{ valor['photos'][0]['tags'][0]['attributes']['lips']['confidence'] }}%)</a>
+                            </li>
+                            {% endif %}
+
+                            {% if valor['photos'][0]['tags'][0]['attributes']['eyes']  %}
+                            <li class="list-group-item">
+                                <b>Olhos</b> <a class="pull-right">{{ valor['photos'][0]['tags'][0]['attributes']['eyes']['value'] }} ({{ valor['photos'][0]['tags'][0]['attributes']['eyes']['confidence'] }}%)</a>
+                            </li>
+                            {% endif %}
+
+                        </ul>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <!-- /.col it -->
+    </div>
+    {% endif %}
+</section>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% set active_page= "resultado" %}
+
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            {{ label }}
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+        {% if title == 'Erro' %}
+            <h2 style="color:#ff0000"><i class="fa fa-times-circle"></i> Erro</h2>
+        {% else %}
+            <h2 style="color:#0fad00"><i class="fa fa-check-circle"></i> Sucesso</h2>
+        {% endif %}
+        <p>{{ texto }}</p>
+        <!-- <div class="row">
+                    
+            <video id="video" width="520" height="442" preload autoplay loop muted></video>
+            <canvas id="canvas" width="518" height="440"></canvas>
+
+        </div> -->
+    </section>
+
+{% endblock content %}
