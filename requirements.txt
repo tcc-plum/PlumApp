@@ -28,7 +28,7 @@ Pyrebase==3.0.27
 python-jwt==2.0.1
 requests==2.11.1
 requests-toolbelt==0.7.0
-rsa==4.0
+rsa==4.1
 scikit-learn==0.21.3
 scipy==1.3.1
 setuptools==40.8.0
